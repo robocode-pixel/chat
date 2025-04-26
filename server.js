@@ -1,6 +1,7 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const { Server } = require('socket.io');
 
 const indexHtmlFile = fs.readFileSync(path.join(__dirname, 'static', 'index.html'));
 const styleCssFile = fs.readFileSync(path.join(__dirname, 'static', 'style.css'));
@@ -16,3 +17,13 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3000);
+
+const io = new Server(server);
+io.on('connection', (socket) => {
+    console.log('A user connected. User id - ' + socket.id);
+
+    socket.on('new_message', (message) => {
+        console.log(message);
+        io.emit('message', message);
+    });
+});
