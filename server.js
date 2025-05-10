@@ -7,11 +7,13 @@ const { Server } = require('socket.io');
 const indexHtmlFile = fs.readFileSync(path.join(__dirname, 'static', 'index.html'));
 const styleCssFile = fs.readFileSync(path.join(__dirname, 'static', 'style.css'));
 const scriptJsFile = fs.readFileSync(path.join(__dirname, 'static', 'script.js'));
+const registerFile = fs.readFileSync(path.join(__dirname, 'static', 'register.html'));
 const server = http.createServer((req, res) => {
     switch(req.url) {
         case '/': return res.end(indexHtmlFile);
         case '/style.css': return res.end(styleCssFile);
         case '/script.js': return res.end(scriptJsFile);
+        case '/register': return res.end(registerFile);
     }
     res.statusCode = 404;
     return res.end('Error 404');
