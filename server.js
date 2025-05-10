@@ -20,16 +20,14 @@ const server = http.createServer((req, res) => {
 server.listen(3000);
 
 const io = new Server(server);
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
     console.log('A user connected. User id - ' + socket.id);
-    let userNickname = 'user';
-
-    socket.on('set_nickname', (nickname) => {
-        userNickname = nickname;
-    })
+    
+    let messages = await db.getMessages();
+    socket.emit('all_messages', messages);
 
     socket.on('new_message', (message) => {
-        console.log(message);
-        io.emit('message', userNickname + ': ' + message);
+        db.addMessage(message, 1);
+        io.emit('message', message);
     });
 });

@@ -22,10 +22,46 @@ dbWrapper
                 password TEXT
                 );`
             );
+
+            await db.run(
+                `INSERT INTO user (login, password) VALUES
+                ('admin', 'admin'),
+                ('JavaScript', 'banana'),
+                ('user1', 'password1'),
+                ('enduro', 'NeDorogo');`
+            );
+
+            await db.run(
+                `CREATE TABLE message(
+                msg_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                content TEXT,
+                author INTEGER,
+                FOREIGN KEY(author) REFERENCES user(user_id)
+                );`
+            );
         } else {
-            console.log(await db.all("SELECT * FROM user"));
+            console.log(await db.all("SELECT * FROM message"));
         }
     } catch(dbError) {
         console.log(dbError);
     }
 })
+
+module.exports = {
+    getMessages: async () => {
+        try {
+            return await db.all(
+                `SELECT msg_id, content, login, user_id FROM message
+                JOIN user ON message.author = user.user_id`
+            );
+        } catch(dbError) {
+            console.error(dbError);
+        }
+    },
+    addMessage: async (msg, userid) => {
+        await db.run(
+            `INSERT INTO message (content, author) VALUES (?, ?)`,
+            [msg, userid]
+        );
+    }
+};
