@@ -40,7 +40,7 @@ dbWrapper
                 );`
             );
         } else {
-            console.log(await db.all("SELECT * FROM message"));
+            console.log(await db.all("SELECT * FROM user"));
         }
     } catch(dbError) {
         console.log(dbError);
@@ -62,6 +62,16 @@ module.exports = {
         await db.run(
             `INSERT INTO message (content, author) VALUES (?, ?)`,
             [msg, userid]
+        );
+    },
+    isUserExist: async (login) => {
+        const candidate = await db.all(`SELECT * FROM user WHERE login = ?`, [login]);
+        return !!candidate.length;
+    },
+    addUser: async (user) => {
+        await db.run(
+            `INSERT INTO user (login, password) VALUES (?, ?)`,
+            [user.login, user.password]
         );
     }
 };
