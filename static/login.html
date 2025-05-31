@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>RoboChat</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main>
+            <header class="header">
+                <h1>RoboChat</h1>
+            </header>
+            <form class="register_form" id="login_form">
+                <div class="register_form_container">
+                    <h1 class="register_form_title">Login page</h1>
+                    <label for="login" class="register_form_label">Логін</label>
+                    <input type="text" id="login" name="login" class="register_form_input" placeholder="Логін">
+
+                    <label for="password" class="register_form_label">Пароль</label>
+                    <input type="password" id="password" name="password" class="register_form_input" placeholder="Пароль">
+
+                    <button type="submit" class="register_form_button">Submit</button>
+                </div>
+            </form>
+        </main>
+    </body>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+    <script src="auth.js"></script>
+</html>

@@ -1,8 +1,12 @@
 const registerForm = document.getElementById('register_form');
+const loginForm = document.getElementById('login_form');
 
-registerForm.addEventListener('submit', (event) => {
+registerForm?.addEventListener('submit', (event) => {
     event.preventDefault();
     const {login, password, passwordRepeat} = registerForm;
+    if (login.value.length < 3) {
+        return alert('The login is too short');
+    }
     if (password.value !== passwordRepeat.value) {
         return alert('The passwords do not match');
     }
@@ -15,6 +19,19 @@ registerForm.addEventListener('submit', (event) => {
     });
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/register');
+    xhr.send(user);
+    xhr.onload = () => alert(xhr.response);
+});
+
+loginForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const {login, password} = loginForm;
+    const user = JSON.stringify({
+        login: login.value,
+        password: password.value
+    });
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/login');
     xhr.send(user);
     xhr.onload = () => alert(xhr.response);
 });
