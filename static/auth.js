@@ -33,5 +33,13 @@ loginForm?.addEventListener('submit', (event) => {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/login');
     xhr.send(user);
-    xhr.onload = () => alert(xhr.response);
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const token = xhr.response;
+            document.cookie = `token=${token}`;
+            window.location.assign('/');
+        } else {
+            return alert(xhr.response);
+        }
+    };
 });
