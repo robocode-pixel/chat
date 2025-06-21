@@ -8,12 +8,25 @@ const input = document.getElementById('input');
 const messages = document.getElementById('messages');
 
 socket.on('all_messages', function(msgArray) {
-    msgArray.forEach(msg => {
-        let item = document.createElement('li');
-        item.textContent = msg.login + ': ' + msg.content;
+    msgArray.forEach(message => {
+        console.log(message);
+        
+        var img = document.createElement('img');
+        img.className = 'avatar';
+        img.src = avatar;
+        img.alt = "Avatar";
+
+        var span = document.createElement('span');
+        span.className = 'msg';
+        span.textContent = msg;
+
+        var item = document.createElement('li');
+        item.appendChild(img);
+        item.appendChild(span);
+    
         messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
     });
-    window.scrollTo(0, document.body.scrollHeight);
 });
 
 form.addEventListener('submit', function(e) {
