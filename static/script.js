@@ -9,23 +9,7 @@ const messages = document.getElementById('messages');
 
 socket.on('all_messages', function(msgArray) {
     msgArray.forEach(message => {
-        console.log(message);
-        
-        var img = document.createElement('img');
-        img.className = 'avatar';
-        img.src = avatar;
-        img.alt = "Avatar";
-
-        var span = document.createElement('span');
-        span.className = 'msg';
-        span.textContent = msg;
-
-        var item = document.createElement('li');
-        item.appendChild(img);
-        item.appendChild(span);
-    
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
+        printMessage(message.avatar, message.content);
     });
 });
 
@@ -38,6 +22,10 @@ form.addEventListener('submit', function(e) {
 })
 
 socket.on('message', function(avatar, msg) {
+    printMessage(avatar, msg);
+});
+
+function printMessage(avatar, text) {
     var img = document.createElement('img');
     img.className = 'avatar';
     img.src = avatar;
@@ -45,7 +33,7 @@ socket.on('message', function(avatar, msg) {
 
     var span = document.createElement('span');
     span.className = 'msg';
-    span.textContent = msg;
+    span.textContent = text;
 
     var item = document.createElement('li');
     item.appendChild(img);
@@ -53,4 +41,4 @@ socket.on('message', function(avatar, msg) {
     
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
-});
+}

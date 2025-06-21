@@ -46,7 +46,7 @@ module.exports = {
     getMessages: async () => {
         try {
             return await db.all(
-                `SELECT msg_id, content, login, user_id FROM message
+                `SELECT msg_id, content, login, user_id, avatar FROM message
                 JOIN user ON message.author = user.user_id`
             );
         } catch(dbError) {

@@ -1,5 +1,10 @@
 const registerForm = document.getElementById('register_form');
 const loginForm = document.getElementById('login_form');
+const loginBtn = document.getElementById('login-btn');
+
+loginBtn?.addEventListener('click', (e) => {
+    location.assign('/login');
+})
 
 registerForm?.addEventListener('submit', (event) => {
     event.preventDefault();

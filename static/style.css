@@ -29,7 +29,7 @@ main {
     color: var(--color-white);
     height: var(--header-height);
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -136,4 +136,12 @@ li {
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.link {
+    color: var(--color-accent);
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
 }
