@@ -15,7 +15,8 @@ registerForm?.addEventListener('submit', (event) => {
     }
     const user = JSON.stringify({
         login: login.value,
-        password: password.value
+        password: password.value,
+        avatar: avatar.value
     });
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/register');

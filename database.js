@@ -21,7 +21,8 @@ dbWrapper
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 login TEXT,
                 password TEXT,
-                salt TEXT
+                salt TEXT,
+                avatar TEXT
                 );`
             );
 
@@ -66,8 +67,8 @@ module.exports = {
         const salt = crypto.randomBytes(16).toString('hex');
         const password = crypto.pbkdf2Sync(user.password, salt, 1000, 64, `sha512`).toString(`hex`);
         await db.run(
-            `INSERT INTO user (login, password, salt) VALUES (?, ?, ?)`,
-            [user.login, password, salt]
+            `INSERT INTO user (login, password, salt, avatar) VALUES (?, ?, ?, ?)`,
+            [user.login, password, salt, user.avatar]
         );
     },
     getAuthToken: async (user) => {
@@ -81,5 +82,9 @@ module.exports = {
             throw 'Wrong password';
         }
         return user_id + '.' + login + '.' + crypto.randomBytes(20).toString('hex');
+    },
+    getAvatar: async (userId) => {
+        const candidate = await db.all(`SELECT * FROM user WHERE user_id = ?`, [userId]);
+        return candidate[0].avatar;
     }
 };

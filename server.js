@@ -124,8 +124,9 @@ io.on('connection', async (socket) => {
     let messages = await db.getMessages();
     socket.emit('all_messages', messages);
 
-    socket.on('new_message', (message) => {
+    socket.on('new_message', async (message) => {
         db.addMessage(message, userId);
-        io.emit('message', userNickname + ': ' + message);
+        let avatar = await db.getAvatar(userId);
+        io.emit('message', avatar, userNickname + ': ' + message);
     });
 });
