@@ -6,10 +6,16 @@ const socket = io({
 const form = document.getElementById('form');
 const input = document.getElementById('input');
 const messages = document.getElementById('messages');
+const logoutBtn = document.getElementById('log-out-btn');
+
+logoutBtn.addEventListener('click', (e) => {
+    document.cookie = 'token=; Mac-Age=0';
+    location.assign('/login');
+});
 
 socket.on('all_messages', function(msgArray) {
     msgArray.forEach(message => {
-        printMessage(message.avatar, message.content);
+        printMessage(message.avatar, message.login + ': ' + message.content);
     });
 });
 

@@ -7,6 +7,9 @@
     "start": "node server.js",
     "dev": "nodemon server"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robocode-pixel/chat.git"
